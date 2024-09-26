@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Downloads/gummigoo"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "threejs-rotating-cube"
+	}
+}
