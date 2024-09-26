@@ -15,7 +15,7 @@ const camera = new THREE.PerspectiveCamera(
     0.1,
     1000
 );
-camera.position.set(0, 20, 20); // Adjusted Z position for better initial view
+camera.position.set(0, 20, 15); // Adjusted Z position for better initial view
 camera.lookAt(scene.position);
 
 // Renderer Setup
@@ -47,17 +47,17 @@ loader.load(
 
 // Add Directional Light
 const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1);
-directionalLight.position.set(10, 10, 10); // Positioning light for better illumination
+directionalLight.position.set(0, 10, 10); // Positioning light for better illumination
 scene.add(directionalLight);
 
 // Create Vehicle Mesh
-const vehicleGeometry = new THREE.ConeGeometry(0.1, 0.5, 8); // Updated to ConeGeometry
-vehicleGeometry.rotateX(Math.PI * 0.5);
+//const vehicleGeometry = new THREE.ConeGeometry(0.1, 0.5, 8); // Updated to ConeGeometry
+//vehicleGeometry.rotateX(Math.PI * 0.5);
 
-const vehicleMaterial = new THREE.MeshNormalMaterial();
-const vehicleMesh = new THREE.Mesh(vehicleGeometry, vehicleMaterial);
-vehicleMesh.matrixAutoUpdate = false;
-scene.add(vehicleMesh);
+//const vehicleMaterial = new THREE.MeshNormalMaterial();
+//const vehicleMesh = new THREE.Mesh(vehicleGeometry, vehicleMaterial);
+//vehicleMesh.matrixAutoUpdate = false;
+//scene.add(vehicleMesh);
 
 // YUKA Vehicle Setup
 const vehicle = new YUKA.Vehicle();
