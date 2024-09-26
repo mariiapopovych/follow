@@ -32,36 +32,9 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-// Load GLTF Model
-const loader = new GLTFLoader();
-loader.load(
-    strikerModel, // Use the imported model path
-    (gltf) => {
-        scene.add(gltf.scene);
-    },
-    undefined,
-    (error) => {
-        console.error('An error occurred while loading the GLTF model:', error);
-    }
-);
-
-// Add Directional Light
-const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1);
-directionalLight.position.set(10, 10, 10); // Positioning light for better illumination
-scene.add(directionalLight);
-
-// Create Vehicle Mesh
-const vehicleGeometry = new THREE.ConeGeometry(0.1, 0.5, 8); // Updated to ConeGeometry
-vehicleGeometry.rotateX(Math.PI * 0.5);
-
-const vehicleMaterial = new THREE.MeshNormalMaterial();
-const vehicleMesh = new THREE.Mesh(vehicleGeometry, vehicleMaterial);
-vehicleMesh.matrixAutoUpdate = false;
-scene.add(vehicleMesh);
-
 // YUKA Vehicle Setup
 const vehicle = new YUKA.Vehicle();
-vehicle.setRenderComponent(vehicleMesh, sync);
+
 
 // Sync Function for YUKA
 function sync(entity, renderComponent) {
@@ -70,17 +43,19 @@ function sync(entity, renderComponent) {
 
 // Define Path for YUKA
 const path = new YUKA.Path();
-path.add(new YUKA.Vector3(-4, 0, 4));
-path.add(new YUKA.Vector3(-6, 0, 0));
-path.add(new YUKA.Vector3(-4, 0, -4));
+path.add(new YUKA.Vector3(-6, 0, 4));
+path.add(new YUKA.Vector3(-12, 0, 0));
+path.add(new YUKA.Vector3(-6, 0, -12));
 path.add(new YUKA.Vector3(0, 0, 0));
-path.add(new YUKA.Vector3(4, 0, -4));
-path.add(new YUKA.Vector3(6, 0, 0));
+path.add(new YUKA.Vector3(8, 0, -8));
+path.add(new YUKA.Vector3(10, 0, 0));
 path.add(new YUKA.Vector3(4, 0, 4));
 path.add(new YUKA.Vector3(0, 0, 6));
 path.loop = true;
 
 vehicle.position.copy(path.current());
+
+vehicle.maxSpeed = 4;
 
 // Add Behaviors to Vehicle
 const followPathBehavior = new YUKA.FollowPathBehavior(path, 0.5);
@@ -92,6 +67,34 @@ vehicle.steering.add(onPathBehavior);
 // Entity Manager
 const entityManager = new YUKA.EntityManager();
 entityManager.add(vehicle);
+
+// Load GLTF Model
+const loader = new GLTFLoader();
+
+loader.load( strikerModel, function(glb){
+    const model = glb.scene;
+    scene.add(model);
+    model.matrixAutoUpdate = false;
+    vehicle.scale = new YUKA.Vector3(0.5, 0.5, 0.5);
+    vehicle.setRenderComponent(model, sync);
+})
+
+
+// Add Directional Light
+const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1);
+directionalLight.position.set(10, 10, 10); // Positioning light for better illumination
+scene.add(directionalLight);
+
+// Create Vehicle Mesh
+//const vehicleGeometry = new THREE.ConeGeometry(0.1, 0.5, 8); // Updated to ConeGeometry
+//vehicleGeometry.rotateX(Math.PI * 0.5);
+
+//const vehicleMaterial = new THREE.MeshNormalMaterial();
+//const vehicleMesh = new THREE.Mesh(vehicleGeometry, vehicleMaterial);
+//vehicleMesh.matrixAutoUpdate = false;
+//scene.add(vehicleMesh);
+
+
 
 // Visualize Path with Lines
 const positions = path._waypoints.flatMap(waypoint => [waypoint.x, waypoint.y, waypoint.z]);
