@@ -589,13 +589,13 @@ var _three = require("three");
 var _gltfloaderJs = require("three/examples/jsm/loaders/GLTFLoader.js");
 var _yuka = require("yuka");
 // Import the GLB model to ensure Parcel processes it
-var _strikerGlb = require("./model3d/Striker.glb");
-var _strikerGlbDefault = parcelHelpers.interopDefault(_strikerGlb);
+var _sceneGlb = require("./model3d/scene.glb");
+var _sceneGlbDefault = parcelHelpers.interopDefault(_sceneGlb);
 // Scene Setup
 const scene = new _three.Scene();
 // Camera Setup
 const camera = new _three.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 20, 20); // Adjusted Z position for better initial view
+camera.position.set(0, 20, 40); // Adjusted Z position for better initial view
 camera.lookAt(scene.position);
 // Renderer Setup
 const renderer = new _three.WebGLRenderer({
@@ -640,7 +640,7 @@ const entityManager = new _yuka.EntityManager();
 entityManager.add(vehicle);
 // Load GLTF Model
 const loader = new (0, _gltfloaderJs.GLTFLoader)();
-loader.load((0, _strikerGlbDefault.default), function(glb) {
+loader.load((0, _sceneGlbDefault.default), function(glb) {
     const model = glb.scene;
     scene.add(model);
     model.matrixAutoUpdate = false;
@@ -681,7 +681,7 @@ function animate() {
 }
 renderer.setAnimationLoop(animate);
 
-},{"three":"ktPTu","three/examples/jsm/loaders/GLTFLoader.js":"dVRsF","yuka":"ead4k","./model3d/Striker.glb":"6Q6D8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ktPTu":[function(require,module,exports) {
+},{"three":"ktPTu","three/examples/jsm/loaders/GLTFLoader.js":"dVRsF","yuka":"ead4k","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./model3d/scene.glb":"iHUwM"}],"ktPTu":[function(require,module,exports) {
 /**
  * @license
  * Copyright 2010-2024 Three.js Authors
@@ -48387,10 +48387,10 @@ const closestNormalPoint = new Vector3();
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6Q6D8":[function(require,module,exports) {
-module.exports = require("98e3c02dbbe0ae4e").getBundleURL("gnRNX") + "Striker.ab272b8b.glb" + "?" + Date.now();
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iHUwM":[function(require,module,exports) {
+module.exports = require("f13d04e19617cd20").getBundleURL("gnRNX") + "scene.e931218c.glb" + "?" + Date.now();
 
-},{"98e3c02dbbe0ae4e":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+},{"f13d04e19617cd20":"lgJ39"}],"lgJ39":[function(require,module,exports) {
 "use strict";
 var bundleURL = {};
 function getBundleURLCached(id) {

@@ -3,7 +3,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import * as YUKA from 'yuka';
 
 // Import the GLB model to ensure Parcel processes it
-import strikerModel from './model3d/Striker.glb';
+import strikerModel from './model3d/scene.glb';
 
 // Scene Setup
 const scene = new THREE.Scene();
@@ -15,7 +15,7 @@ const camera = new THREE.PerspectiveCamera(
     0.1,
     1000
 );
-camera.position.set(0, 20, 20); // Adjusted Z position for better initial view
+camera.position.set(0, 20, 40); // Adjusted Z position for better initial view
 camera.lookAt(scene.position);
 
 // Renderer Setup
