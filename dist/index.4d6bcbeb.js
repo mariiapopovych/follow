@@ -588,100 +588,96 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _three = require("three");
 var _gltfloaderJs = require("three/examples/jsm/loaders/GLTFLoader.js");
 var _yuka = require("yuka");
-// Import the GLB model to ensure Parcel processes it
 var _sceneGlb = require("./model3d/scene.glb");
 var _sceneGlbDefault = parcelHelpers.interopDefault(_sceneGlb);
-// Scene Setup
-const scene = new _three.Scene();
-// Camera Setup
-const camera = new _three.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 20, 40); // Adjusted Z position for better initial view
-camera.lookAt(scene.position);
-// Renderer Setup
 const renderer = new _three.WebGLRenderer({
     antialias: true
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(0xA3A3A3);
 document.body.appendChild(renderer.domElement);
-// Handle Window Resize
-window.addEventListener("resize", onWindowResize, false);
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}
-// YUKA Vehicle Setup
+const scene = new _three.Scene();
+renderer.setClearColor(0xA3A3A3);
+const camera = new _three.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 10, 4);
+camera.lookAt(scene.position);
+const ambientLight = new _three.AmbientLight(0x333333);
+scene.add(ambientLight);
+const directionalLight = new _three.DirectionalLight(0xFFFFFF, 1);
+scene.add(directionalLight);
+// const vehicleGeometry = new THREE.ConeBufferGeometry(0.1, 0.5, 8);
+// vehicleGeometry.rotateX(Math.PI * 0.5);
+// const vehicleMaterial = new THREE.MeshNormalMaterial();
+// const vehicleMesh = new THREE.Mesh(vehicleGeometry, vehicleMaterial);
+// vehicleMesh.matrixAutoUpdate = false;
+// scene.add(vehicleMesh);
 const vehicle = new _yuka.Vehicle();
-// Sync Function for YUKA
+vehicle.scale.set(0.15, 0.15, 0.15);
 function sync(entity, renderComponent) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }
-// Define Path for YUKA
-const path = new _yuka.Path();
-path.add(new _yuka.Vector3(-6, 0, 4));
-path.add(new _yuka.Vector3(-12, 0, 0));
-path.add(new _yuka.Vector3(-6, 0, -12));
-path.add(new _yuka.Vector3(0, 0, 0));
-path.add(new _yuka.Vector3(8, 0, -8));
-path.add(new _yuka.Vector3(10, 0, 0));
-path.add(new _yuka.Vector3(4, 0, 4));
-path.add(new _yuka.Vector3(0, 0, 6));
-path.loop = true;
-vehicle.position.copy(path.current());
-vehicle.maxSpeed = 4;
-// Add Behaviors to Vehicle
-const followPathBehavior = new _yuka.FollowPathBehavior(path, 0.5);
-vehicle.steering.add(followPathBehavior);
-const onPathBehavior = new _yuka.OnPathBehavior(path);
-vehicle.steering.add(onPathBehavior);
-// Entity Manager
 const entityManager = new _yuka.EntityManager();
 entityManager.add(vehicle);
-// Load GLTF Model
 const loader = new (0, _gltfloaderJs.GLTFLoader)();
+const group = new _three.Group();
 loader.load((0, _sceneGlbDefault.default), function(glb) {
     const model = glb.scene;
-    scene.add(model);
     model.matrixAutoUpdate = false;
-    vehicle.scale = new _yuka.Vector3(0.5, 0.5, 0.5);
+    group.add(model);
+    scene.add(group);
     vehicle.setRenderComponent(model, sync);
 });
-// Add Directional Light
-const directionalLight = new _three.DirectionalLight(0xFFFFFF, 1);
-directionalLight.position.set(10, 10, 10); // Positioning light for better illumination
-scene.add(directionalLight);
-// Create Vehicle Mesh
-//const vehicleGeometry = new THREE.ConeGeometry(0.1, 0.5, 8); // Updated to ConeGeometry
-//vehicleGeometry.rotateX(Math.PI * 0.5);
-//const vehicleMaterial = new THREE.MeshNormalMaterial();
-//const vehicleMesh = new THREE.Mesh(vehicleGeometry, vehicleMaterial);
-//vehicleMesh.matrixAutoUpdate = false;
-//scene.add(vehicleMesh);
-// Visualize Path with Lines
-const positions = path._waypoints.flatMap((waypoint)=>[
-        waypoint.x,
-        waypoint.y,
-        waypoint.z
-    ]);
-const lineGeometry = new _three.BufferGeometry();
-lineGeometry.setAttribute("position", new _three.Float32BufferAttribute(positions, 3));
-const lineMaterial = new _three.LineBasicMaterial({
-    color: 0xFFFFFF
+// const targetGeometry = new THREE.SphereGeometry(0.1);
+// const targetMaterial = new THREE.MeshPhongMaterial({color: 0xFFEA00});
+// const targetMesh = new THREE.Mesh(targetGeometry, targetMaterial);
+// targetMesh.matrixAutoUpdate = false;
+// scene.add(targetMesh);
+const target = new _yuka.GameEntity();
+//target.setRenderComponent(targetMesh, sync);
+entityManager.add(target);
+const arriveBehavior = new _yuka.ArriveBehavior(target.position, 3, 0.5);
+vehicle.steering.add(arriveBehavior);
+vehicle.position.set(-3, 0, -3);
+vehicle.maxSpeed = 1.5;
+const mousePosition = new _three.Vector2();
+window.addEventListener("mousemove", function(e) {
+    mousePosition.x = e.clientX / this.window.innerWidth * 2 - 1;
+    mousePosition.y = -(e.clientY / this.window.innerHeight) * 2 + 1;
 });
-const lines = new _three.LineLoop(lineGeometry, lineMaterial);
-scene.add(lines);
-// YUKA Time
+const planeGeo = new _three.PlaneGeometry(25, 25);
+const planeMat = new _three.MeshBasicMaterial({
+    visible: false
+});
+const planeMesh = new _three.Mesh(planeGeo, planeMat);
+planeMesh.rotation.x = -0.5 * Math.PI;
+scene.add(planeMesh);
+planeMesh.name = "plane";
+const raycaster = new _three.Raycaster();
+window.addEventListener("click", function() {
+    raycaster.setFromCamera(mousePosition, camera);
+    const intersects = raycaster.intersectObjects(scene.children);
+    for(let i = 0; i < intersects.length; i++)if (intersects[i].object.name === "plane") target.position.set(intersects[i].point.x, 0, intersects[i].point.z);
+});
+// setInterval(function(){
+//     const x = Math.random() * 3;
+//     const y = Math.random() * 3;
+//     const z = Math.random() * 3;
+//     target.position.set(x, y, z);
+// }, 2000);
 const time = new _yuka.Time();
-// Animation Loop
-function animate() {
+function animate(t) {
     const delta = time.update().getDelta();
     entityManager.update(delta);
+    group.position.y = 0.05 * Math.sin(t / 500);
     renderer.render(scene, camera);
 }
 renderer.setAnimationLoop(animate);
+window.addEventListener("resize", function() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
 
-},{"three":"ktPTu","three/examples/jsm/loaders/GLTFLoader.js":"dVRsF","yuka":"ead4k","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./model3d/scene.glb":"iHUwM"}],"ktPTu":[function(require,module,exports) {
+},{"three":"ktPTu","three/examples/jsm/loaders/GLTFLoader.js":"dVRsF","yuka":"ead4k","./model3d/scene.glb":"iHUwM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ktPTu":[function(require,module,exports) {
 /**
  * @license
  * Copyright 2010-2024 Three.js Authors
