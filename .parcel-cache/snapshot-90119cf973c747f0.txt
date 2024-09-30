@@ -1,4 +1,4 @@
-7053
+7054
 95C:\Users\maryp\follow\node_modules\csso\node_modules\css-tree\cjs\syntax\node\ClassSelector.cjs133718590752188267 0
 92C:\Users\maryp\follow\node_modules\lmdb\dependencies\lmdb-data-v1\libraries\liblmdb\mtest5.c133718590756703595 0
 31C:\Users\maryp\follow\.parcelrc133718590711250301 0
@@ -25,7 +25,7 @@
 53C:\Users\maryp\follow\node_modules\@parcel\plugin\src133718590719025545 1
 61C:\Users\maryp\follow\node_modules\@swc\helpers\_\_call_super133718590741099478 1
 59C:\Users\maryp\follow\node_modules\abortcontroller-polyfill133718590743315874 1
-26C:\Users\maryp\follow\dist133720768277051412 1
+26C:\Users\maryp\follow\dist133721729769341444 1
 60C:\Users\maryp\follow\node_modules\css-select\lib\index.d.ts133718590748488938 0
 52C:\Users\maryp\follow\node_modules\@msgpackr-extract133718590712840269 1
 33C:\Users\maryp\follow\favicon.ico133718590711920208 0
@@ -100,7 +100,7 @@
 69C:\Users\maryp\follow\node_modules\three\src\nodes\functions\material133718590765958062 1
 90C:\Users\maryp\follow\node_modules\react-refresh\cjs\react-refresh-babel.production.min.js133718590759104041 0
 77C:\Users\maryp\follow\node_modules\utility-types\dist\functional-helpers.d.ts133718590768301892 0
-33C:\Users\maryp\follow\src\main.js133720768273243139 0
+33C:\Users\maryp\follow\src\main.js133720788143859048 0
 78C:\Users\maryp\follow\node_modules\three\src\extras\curves\CatmullRomCurve3.js133718590764453934 0
 81C:\Users\maryp\follow\node_modules\three\src\renderers\common\CubeRenderTarget.js133718590766509110 0
 44C:\Users\maryp\follow\node_modules\@mischnic133718590712810310 1
@@ -114,7 +114,20 @@
 82C:\Users\maryp\follow\node_modules\three\src\nodes\lighting\HemisphereLightNode.js133718590766037917 0
 110C:\Users\maryp\follow\node_modules\three\src\renderers\shaders\ShaderChunk\envmap_common_pars_fragment.glsl.js133718590766919094 0
 62C:\Users\maryp\follow\node_modules\@parcel\fs\src\OverlayFS.js133718590714520311 0
-33C:\Users\maryp\follow\src\model3d133719216354135650 1
+33C:\Users\maryp\follow\src\model3d133720786912998990 1
+67C:\Users\maryp\follow\node_modules\@parcel\packager-js\src\utils.js133718590718874941 0
+40C:\Users\maryp\follow\node_modules\@lmdb133718590712610300 1
+93C:\Users\maryp\follow\node_modules\csso\node_modules\css-tree\cjs\definition-syntax\index.cjs133718590751917343 0
+77C:\Users\maryp\follow\node_modules\source-map-js\lib\source-map-consumer.d.ts133718590759508315 0
+77C:\Users\maryp\follow\node_modules\three\src\renderers\webgl\WebGLCubeMaps.js133718590767509761 0
+56C:\Users\maryp\follow\node_modules\entities\package.json133718590754056841 0
+65C:\Users\maryp\follow\node_modules\type-fest\ts41\snake-case.d.ts133718590768201931 0
+85C:\Users\maryp\follow\node_modules\htmlnano\lib\modules\minifyConditionalComments.cjs133718590754610826 0
+67C:\Users\maryp\follow\node_modules\three\src\nodes\utils\RTTNode.js133718590766259097 0
+81C:\Users\maryp\follow\node_modules\caniuse-lite\data\features\domcontentloaded.js133718590744758257 0
+103C:\Users\maryp\follow\node_modules\three\src\renderers\shaders\ShaderChunk\emissivemap_fragment.glsl.js133718590766909090 0
+42C:\Users\maryp\follow\src\model3d\man.gltf133720786514098380 0
+59C:\Users\maryp\follow\node_modules\htmlnano\lib\helpers.cjs133718590754520838 0
 44C:\Users\maryp\follow\node_modules\lmdb\dict133718590757157277 1
 66C:\Users\maryp\follow\node_modules\update-browserslist-db\index.js133718590768241946 0
 53C:\Users\maryp\follow\node_modules\css-tree\lib\lexer133718590750765935 1
@@ -159,14 +172,6 @@
 89C:\Users\maryp\follow\node_modules\csso\node_modules\css-tree\lib\syntax\config\parser.js133718590752797330 0
 109C:\Users\maryp\follow\node_modules\@parcel\optimizer-svgo\node_modules\svgo\plugins\addClassesToSVGElement.js133718590718039474 0
 61C:\Users\maryp\follow\node_modules\utility-types\package.json133718590768371905 0
-67C:\Users\maryp\follow\node_modules\@parcel\packager-js\src\utils.js133718590718874941 0
-40C:\Users\maryp\follow\node_modules\@lmdb133718590712610300 1
-93C:\Users\maryp\follow\node_modules\csso\node_modules\css-tree\cjs\definition-syntax\index.cjs133718590751917343 0
-77C:\Users\maryp\follow\node_modules\source-map-js\lib\source-map-consumer.d.ts133718590759508315 0
-77C:\Users\maryp\follow\node_modules\three\src\renderers\webgl\WebGLCubeMaps.js133718590767509761 0
-56C:\Users\maryp\follow\node_modules\entities\package.json133718590754056841 0
-65C:\Users\maryp\follow\node_modules\type-fest\ts41\snake-case.d.ts133718590768201931 0
-85C:\Users\maryp\follow\node_modules\htmlnano\lib\modules\minifyConditionalComments.cjs133718590754610826 0
 69C:\Users\maryp\follow\node_modules\@parcel\core\test\fixtures\context133718590714110273 1
 92C:\Users\maryp\follow\node_modules\@parcel\runtime-js\lib\helpers\browser\prefetch-loader.js133718590719575618 0
 62C:\Users\maryp\follow\node_modules\lightningcss\node\index.mjs133718590756429979 0
@@ -192,7 +197,7 @@
 53C:\Users\maryp\follow\node_modules\three\src\Three.js133718590764123888 0
 72C:\Users\maryp\follow\node_modules\type-fest\source\set-return-type.d.ts133718590768141882 0
 70C:\Users\maryp\follow\node_modules\three\src\nodes\accessors\Camera.js133718590765213932 0
-48C:\Users\maryp\follow\dist\index.4d6bcbeb.js.map133720768277021415 0
+48C:\Users\maryp\follow\dist\index.4d6bcbeb.js.map133721729769321443 0
 63C:\Users\maryp\follow\node_modules\css-select\lib\esm\sort.d.ts133718590748438974 0
 61C:\Users\maryp\follow\node_modules\react-refresh\package.json133718590759114002 0
 43C:\Users\maryp\follow\node_modules\argparse133718590743448333 1
@@ -323,11 +328,11 @@
 96C:\Users\maryp\follow\node_modules\@parcel\core\test\fixtures\invalid-target-source-not-file\src133718590714190269 1
 103C:\Users\maryp\follow\node_modules\csso\node_modules\css-tree\cjs\syntax\node\PseudoElementSelector.cjs133718590752268125 0
 74C:\Users\maryp\follow\node_modules\three\examples\jsm\loaders\KTXLoader.js133718590762878238 0
-43C:\Users\maryp\follow\node_modules\css-what133718590751361611 1
-100C:\Users\maryp\follow\node_modules\@parcel\optimizer-htmlnano\node_modules\csso\lib\clean\Comment.js133718590715719501 0
-71C:\Users\maryp\follow\node_modules\three\examples\jsm\webxr\VRButton.js133718590764073918 0
 70C:\Users\maryp\follow\node_modules\caniuse-lite\data\features\mpeg4.js133718590745463165 0
 70C:\Users\maryp\follow\node_modules\three\src\lights\HemisphereLight.js133718590764683917 0
+100C:\Users\maryp\follow\node_modules\@parcel\optimizer-htmlnano\node_modules\csso\lib\clean\Comment.js133718590715719501 0
+71C:\Users\maryp\follow\node_modules\three\examples\jsm\webxr\VRButton.js133718590764073918 0
+43C:\Users\maryp\follow\node_modules\css-what133718590751361611 1
 79C:\Users\maryp\follow\node_modules\utility-types\dist\aliases-and-guards.js.map133718590768292148 0
 92C:\Users\maryp\follow\node_modules\@swc\helpers\cjs\_create_for_of_iterator_helper_loose.cjs133718590741905027 0
 51C:\Users\maryp\follow\node_modules\lmdb\src\txn.cpp133718590757397194 0
@@ -335,8 +340,6 @@
 46C:\Users\maryp\follow\node_modules\detect-libc133718590753341764 1
 43C:\Users\maryp\follow\node_modules\csso\cjs133718590751611612 1
 57C:\Users\maryp\follow\node_modules\htmlnano\.eslintignore133718590754290890 0
-58C:\Users\maryp\follow\node_modules\three\src\extras\curves133718590764493933 1
-78C:\Users\maryp\follow\node_modules\three\src\renderers\common\RenderBundles.js133718590766569164 0
 76C:\Users\maryp\follow\node_modules\@swc\helpers\_\_to_primitive\package.json133718590741634136 0
 55C:\Users\maryp\follow\node_modules\electron-to-chromium133718590753916819 1
 58C:\Users\maryp\follow\node_modules\three\src\nodes\parsers133718590766157946 1
@@ -411,13 +414,6 @@
 67C:\Users\maryp\follow\node_modules\three\src\objects\BatchedMesh.js133718590766329262 0
 75C:\Users\maryp\follow\node_modules\@parcel\optimizer-svgo\node_modules\svgo133718590717999476 1
 43C:\Users\maryp\follow\node_modules\htmlnano133718590754820825 1
-76C:\Users\maryp\follow\node_modules\three\src\nodes\accessors\ClippingNode.js133718590765213932 0
-88C:\Users\maryp\follow\node_modules\@parcel\core\test\fixtures\config-malformed\.parcelrc133718590714080306 0
-89C:\Users\maryp\follow\node_modules\three\src\renderers\webgpu\utils\WebGPUBindingUtils.js133718590767679757 0
-66C:\Users\maryp\follow\node_modules\ordered-binary\rollup.config.js133718590758560979 0
-68C:\Users\maryp\follow\node_modules\three\examples\jsm\misc\Volume.js133718590763248267 0
-84C:\Users\maryp\follow\node_modules\csso\node_modules\css-tree\lib\syntax\node\Url.js133718590752997451 0
-46C:\Users\maryp\follow\node_modules\is-arrayish133718590754970815 1
 61C:\Users\maryp\follow\node_modules\@parcel\types\package.json133718590736158663 0
 70C:\Users\maryp\follow\node_modules\node-releases\data\release-schedule133718590758308533 1
 62C:\Users\maryp\follow\node_modules\domelementtype\package.json133718590753606021 0
@@ -428,6 +424,13 @@
 47C:\Users\maryp\follow\node_modules\import-fresh133718590754930982 1
 67C:\Users\maryp\follow\node_modules\css-what\lib\commonjs\index.d.ts133718590751251807 0
 54C:\Users\maryp\follow\node_modules\css-tree\lib\syntax133718590751091612 1
+76C:\Users\maryp\follow\node_modules\three\src\nodes\accessors\ClippingNode.js133718590765213932 0
+88C:\Users\maryp\follow\node_modules\@parcel\core\test\fixtures\config-malformed\.parcelrc133718590714080306 0
+89C:\Users\maryp\follow\node_modules\three\src\renderers\webgpu\utils\WebGPUBindingUtils.js133718590767679757 0
+66C:\Users\maryp\follow\node_modules\ordered-binary\rollup.config.js133718590758560979 0
+68C:\Users\maryp\follow\node_modules\three\examples\jsm\misc\Volume.js133718590763248267 0
+84C:\Users\maryp\follow\node_modules\csso\node_modules\css-tree\lib\syntax\node\Url.js133718590752997451 0
+46C:\Users\maryp\follow\node_modules\is-arrayish133718590754970815 1
 71C:\Users\maryp\follow\node_modules\lmdb\dependencies\lz4\lib\lz4frame.h133718590757097233 0
 79C:\Users\maryp\follow\node_modules\three\src\renderers\webgl\WebGLCubeUVMaps.js133718590767509761 0
 63C:\Users\maryp\follow\node_modules\nth-check\lib\parse.d.ts.map133718590758451027 0
@@ -1473,10 +1476,6 @@
 53C:\Users\maryp\follow\node_modules\css-select\LICENSE133718590748187639 0
 84C:\Users\maryp\follow\node_modules\caniuse-lite\data\features\link-rel-preconnect.js133718590745323247 0
 83C:\Users\maryp\follow\node_modules\three\src\materials\nodes\MeshSSSNodeMaterial.js133718590764973962 0
-67C:\Users\maryp\follow\node_modules\three\src\nodes\utils\RTTNode.js133718590766259097 0
-81C:\Users\maryp\follow\node_modules\caniuse-lite\data\features\domcontentloaded.js133718590744758257 0
-103C:\Users\maryp\follow\node_modules\three\src\renderers\shaders\ShaderChunk\emissivemap_fragment.glsl.js133718590766909090 0
-59C:\Users\maryp\follow\node_modules\htmlnano\lib\helpers.cjs133718590754520838 0
 85C:\Users\maryp\follow\node_modules\lmdb\dependencies\lmdb\libraries\liblmdb\chacha8.h133718590756773687 0
 52C:\Users\maryp\follow\node_modules\is-json\README.md133718590755020807 0
 67C:\Users\maryp\follow\node_modules\three\src\nodes\display\Sepia.js133718590765757931 0
@@ -1652,6 +1651,8 @@
 74C:\Users\maryp\follow\node_modules\three\src\renderers\common\Pipelines.js133718590766529131 0
 73C:\Users\maryp\follow\node_modules\three\src\geometries\SphereGeometry.js133718590764563937 0
 73C:\Users\maryp\follow\node_modules\three\src\renderers\common\QuadMesh.js133718590766549195 0
+58C:\Users\maryp\follow\node_modules\three\src\extras\curves133718590764493933 1
+78C:\Users\maryp\follow\node_modules\three\src\renderers\common\RenderBundles.js133718590766569164 0
 77C:\Users\maryp\follow\node_modules\three\src\nodes\lighting\LightProbeNode.js133718590766047941 0
 78C:\Users\maryp\follow\node_modules\three\src\materials\MeshStandardMaterial.js133718590764893947 0
 64C:\Users\maryp\follow\node_modules\css-select\lib\general.js.map133718590748488938 0
@@ -2092,7 +2093,7 @@
 73C:\Users\maryp\follow\node_modules\three\src\nodes\accessors\MorphNode.js133718590765243926 0
 47C:\Users\maryp\follow\node_modules\@swc\helpers133718590742705883 1
 57C:\Users\maryp\follow\node_modules\mdn-data\l10n\index.js133718590757618352 0
-45C:\Users\maryp\follow\dist\scene.e931218c.glb133720767110093449 0
+45C:\Users\maryp\follow\dist\scene.e931218c.glb133720788146983070 0
 72C:\Users\maryp\follow\node_modules\three\src\nodes\accessors\Position.js133718590765263926 0
 66C:\Users\maryp\follow\node_modules\caniuse-lite\data\regions\ZM.js133718590747541320 0
 85C:\Users\maryp\follow\node_modules\caniuse-lite\data\features\js-regexp-lookbehind.js133718590745233014 0
@@ -4848,8 +4849,8 @@
 86C:\Users\maryp\follow\node_modules\css-select\node_modules\domutils\lib\esm\helpers.js133718590748935662 0
 84C:\Users\maryp\follow\node_modules\css-select\node_modules\domutils\lib\esm\index.js133718590748955840 0
 89C:\Users\maryp\follow\node_modules\css-select\node_modules\domutils\lib\esm\legacy.js.map133718590748975633 0
-97C:\Users\maryp\follow\node_modules\css-select\node_modules\domutils\lib\esm\manipulation.d.ts.map133718590748985628 0
 80C:\Users\maryp\follow\node_modules\caniuse-lite\data\features\css-transitions.js133718590744556201 0
+97C:\Users\maryp\follow\node_modules\css-select\node_modules\domutils\lib\esm\manipulation.d.ts.map133718590748985628 0
 91C:\Users\maryp\follow\node_modules\css-select\node_modules\domutils\lib\esm\manipulation.js133718590748995657 0
 88C:\Users\maryp\follow\node_modules\css-select\node_modules\domutils\lib\esm\package.json133718590748995657 0
 75C:\Users\maryp\follow\node_modules\caniuse-lite\data\features\css-canvas.js133718590744012461 0
@@ -5302,7 +5303,7 @@
 72C:\Users\maryp\follow\node_modules\caniuse-lite\data\features\fileapi.js133718590744858212 0
 73C:\Users\maryp\follow\node_modules\@parcel\package-manager\lib\types.d.ts133718590718420532 0
 75C:\Users\maryp\follow\node_modules\caniuse-lite\data\features\filereader.js133718590744858212 0
-44C:\Users\maryp\follow\dist\index.4d6bcbeb.js133720768276793598 0
+44C:\Users\maryp\follow\dist\index.4d6bcbeb.js133721729769237424 0
 79C:\Users\maryp\follow\node_modules\caniuse-lite\data\features\filereadersync.js133718590744868209 0
 72C:\Users\maryp\follow\node_modules\caniuse-lite\data\features\flexbox.js133718590744888274 0
 74C:\Users\maryp\follow\node_modules\caniuse-lite\data\features\flow-root.js133718590744888274 0
@@ -6665,7 +6666,7 @@
 113C:\Users\maryp\follow\node_modules\@parcel\optimizer-htmlnano\node_modules\svgo\lib\svgo\css-style-declaration.js133718590716229558 0
 97C:\Users\maryp\follow\node_modules\@parcel\optimizer-htmlnano\node_modules\svgo\lib\svgo\jsAPI.js133718590716239530 0
 97C:\Users\maryp\follow\node_modules\@parcel\optimizer-htmlnano\node_modules\svgo\lib\svgo\tools.js133718590716249527 0
-37C:\Users\maryp\follow\dist\index.html133720767110293472 0
+37C:\Users\maryp\follow\dist\index.html133720788146933243 0
 88C:\Users\maryp\follow\node_modules\@parcel\optimizer-htmlnano\node_modules\svgo\bin\svgo133718590716070386 0
 87C:\Users\maryp\follow\node_modules\@parcel\optimizer-htmlnano\node_modules\mdn-data\api133718590715929466 1
 61C:\Users\maryp\follow\node_modules\@parcel\graph\lib\Graph.js133718590714570582 0
