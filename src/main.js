@@ -40,6 +40,7 @@ entityManager.add(vehicle);
 const loader = new GLTFLoader();
 const group = new THREE.Group();
 let mixer;  // Used for managing animations
+let action; // Store the animation action for pausing
 
 // Load the GLTF model
 loader.load(modelUrl, function (gltf) {
@@ -52,9 +53,8 @@ loader.load(modelUrl, function (gltf) {
     // Handle animations
     if (gltf.animations.length > 0) {
         mixer = new THREE.AnimationMixer(model);
-        gltf.animations.forEach((clip) => {
-            mixer.clipAction(clip).play();
-        });
+        action = mixer.clipAction(gltf.animations[0]);
+        action.play();
     }
 });
 
@@ -94,12 +94,43 @@ window.addEventListener('click', function () {
 
 const time = new YUKA.Time();
 
+let previousPosition = new THREE.Vector3();
+let stationaryTime = 0;
+const STATIONARY_THRESHOLD = 0.5; // 2 seconds
+let isAnimationPaused = false;
+
 function animate(t) {
     const delta = time.update().getDelta();
     entityManager.update(delta);
 
-    // Update animations if mixer is defined
-    if (mixer) {
+    // Check if the vehicle has moved
+    const currentPosition = vehicle.position.clone();
+    if (currentPosition.distanceTo(previousPosition) < 0.01) {
+        // If vehicle is still (position difference is very small)
+        stationaryTime += delta;
+        if (stationaryTime >= STATIONARY_THRESHOLD && !isAnimationPaused) {
+            // Stop the animation if stationary for more than the threshold
+            if (action) {
+                action.paused = true;
+                isAnimationPaused = true;
+                console.log('Animation paused');
+            }
+        }
+    } else {
+        // If the position changed, reset stationary time and play animation if paused
+        stationaryTime = 0;
+        if (isAnimationPaused) {
+            if (action) {
+                action.paused = false;
+                isAnimationPaused = false;
+                console.log('Animation resumed');
+            }
+        }
+    }
+    previousPosition.copy(currentPosition);
+
+    // Update animations if mixer is defined and not paused
+    if (mixer && action && !action.paused) {
         mixer.update(delta);
     }
 
