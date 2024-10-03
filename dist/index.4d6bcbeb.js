@@ -588,8 +588,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _three = require("three");
 var _gltfloaderJs = require("three/examples/jsm/loaders/GLTFLoader.js");
 var _yuka = require("yuka");
-var _sceneGlb = require("./model3d/scene.glb");
-var _sceneGlbDefault = parcelHelpers.interopDefault(_sceneGlb);
+var _manGltf = require("./model3d/man.gltf");
+var _manGltfDefault = parcelHelpers.interopDefault(_manGltf);
 const renderer = new _three.WebGLRenderer({
     antialias: true
 });
@@ -604,12 +604,6 @@ const ambientLight = new _three.AmbientLight(0x333333);
 scene.add(ambientLight);
 const directionalLight = new _three.DirectionalLight(0xFFFFFF, 1);
 scene.add(directionalLight);
-// const vehicleGeometry = new THREE.ConeBufferGeometry(0.1, 0.5, 8);
-// vehicleGeometry.rotateX(Math.PI * 0.5);
-// const vehicleMaterial = new THREE.MeshNormalMaterial();
-// const vehicleMesh = new THREE.Mesh(vehicleGeometry, vehicleMaterial);
-// vehicleMesh.matrixAutoUpdate = false;
-// scene.add(vehicleMesh);
 const vehicle = new _yuka.Vehicle();
 vehicle.scale.set(0.15, 0.15, 0.15);
 function sync(entity, renderComponent) {
@@ -619,20 +613,23 @@ const entityManager = new _yuka.EntityManager();
 entityManager.add(vehicle);
 const loader = new (0, _gltfloaderJs.GLTFLoader)();
 const group = new _three.Group();
-loader.load((0, _sceneGlbDefault.default), function(glb) {
-    const model = glb.scene;
+let mixer; // Used for managing animations
+// Load the GLTF model
+loader.load((0, _manGltfDefault.default), function(gltf) {
+    const model = gltf.scene;
     model.matrixAutoUpdate = false;
     group.add(model);
     scene.add(group);
     vehicle.setRenderComponent(model, sync);
+    // Handle animations
+    if (gltf.animations.length > 0) {
+        mixer = new _three.AnimationMixer(model);
+        gltf.animations.forEach((clip)=>{
+            mixer.clipAction(clip).play();
+        });
+    }
 });
-// const targetGeometry = new THREE.SphereGeometry(0.1);
-// const targetMaterial = new THREE.MeshPhongMaterial({color: 0xFFEA00});
-// const targetMesh = new THREE.Mesh(targetGeometry, targetMaterial);
-// targetMesh.matrixAutoUpdate = false;
-// scene.add(targetMesh);
 const target = new _yuka.GameEntity();
-//target.setRenderComponent(targetMesh, sync);
 entityManager.add(target);
 const arriveBehavior = new _yuka.ArriveBehavior(target.position, 3, 0.5);
 vehicle.steering.add(arriveBehavior);
@@ -640,8 +637,8 @@ vehicle.position.set(-3, 0, -3);
 vehicle.maxSpeed = 1.5;
 const mousePosition = new _three.Vector2();
 window.addEventListener("mousemove", function(e) {
-    mousePosition.x = e.clientX / this.window.innerWidth * 2 - 1;
-    mousePosition.y = -(e.clientY / this.window.innerHeight) * 2 + 1;
+    mousePosition.x = e.clientX / window.innerWidth * 2 - 1;
+    mousePosition.y = -(e.clientY / window.innerHeight) * 2 + 1;
 });
 const planeGeo = new _three.PlaneGeometry(25, 25);
 const planeMat = new _three.MeshBasicMaterial({
@@ -657,16 +654,12 @@ window.addEventListener("click", function() {
     const intersects = raycaster.intersectObjects(scene.children);
     for(let i = 0; i < intersects.length; i++)if (intersects[i].object.name === "plane") target.position.set(intersects[i].point.x, 0, intersects[i].point.z);
 });
-// setInterval(function(){
-//     const x = Math.random() * 3;
-//     const y = Math.random() * 3;
-//     const z = Math.random() * 3;
-//     target.position.set(x, y, z);
-// }, 2000);
 const time = new _yuka.Time();
 function animate(t) {
     const delta = time.update().getDelta();
     entityManager.update(delta);
+    // Update animations if mixer is defined
+    if (mixer) mixer.update(delta);
     group.position.y = 0.05 * Math.sin(t / 500);
     renderer.render(scene, camera);
 }
@@ -677,7 +670,7 @@ window.addEventListener("resize", function() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-},{"three":"ktPTu","three/examples/jsm/loaders/GLTFLoader.js":"dVRsF","yuka":"ead4k","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./model3d/scene.glb":"iHUwM"}],"ktPTu":[function(require,module,exports) {
+},{"three":"ktPTu","three/examples/jsm/loaders/GLTFLoader.js":"dVRsF","yuka":"ead4k","./model3d/man.gltf":"6dRAu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ktPTu":[function(require,module,exports) {
 /**
  * @license
  * Copyright 2010-2024 Three.js Authors
@@ -48383,10 +48376,10 @@ const closestNormalPoint = new Vector3();
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iHUwM":[function(require,module,exports) {
-module.exports = require("f13d04e19617cd20").getBundleURL("gnRNX") + "scene.e931218c.glb" + "?" + Date.now();
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6dRAu":[function(require,module,exports) {
+module.exports = require("95f7b806e747f4ba").getBundleURL("gnRNX") + "man.294517f0.gltf" + "?" + Date.now();
 
-},{"f13d04e19617cd20":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+},{"95f7b806e747f4ba":"lgJ39"}],"lgJ39":[function(require,module,exports) {
 "use strict";
 var bundleURL = {};
 function getBundleURLCached(id) {
