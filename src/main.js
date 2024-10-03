@@ -64,7 +64,7 @@ entityManager.add(target);
 const arriveBehavior = new YUKA.ArriveBehavior(target.position, 3, 0.5);
 vehicle.steering.add(arriveBehavior);
 vehicle.position.set(-3, 0, -3);
-vehicle.maxSpeed = 1.5;
+vehicle.maxSpeed = 300;
 
 const mousePosition = new THREE.Vector2();
 
