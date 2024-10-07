@@ -73,15 +73,15 @@ class Model3D {
 
     addArriveBehavior(target) {
         const radius = 0.2; 
-        const deceleration = 1.0; 
+        const deceleration = 2; 
 
         this.models.forEach(({ vehicle }) => {
             vehicle.steering.clear(); 
 
             const arriveBehavior = new YUKA.ArriveBehavior(target.position, radius, deceleration);
             vehicle.steering.add(arriveBehavior);
-            vehicle.maxSpeed = 3; 
-            vehicle.arriveTolerance = 0.2; 
+            vehicle.maxSpeed = 0.4; 
+            vehicle.arriveTolerance = 0.5; 
         });
     }
 
