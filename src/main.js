@@ -112,12 +112,34 @@ modelManagerOne.createInstance(new THREE.Vector3(1, 0, 1));
 modelManagerTwo.createInstance(new THREE.Vector3(-1, 0, 1));
 modelManagerThree.createInstance(new THREE.Vector3(2, 0, -2));
 
+// Function to create 2D text sprite
+function createTextSprite(message) {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    context.font = '30px Arial';
+    context.fillStyle = 'white';
+    context.fillText(message, 0, 30);
+
+    const texture = new THREE.Texture(canvas);
+    texture.needsUpdate = true;
+
+    const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+    const sprite = new THREE.Sprite(spriteMaterial);
+    sprite.scale.set(10, 5, 1); // Scale the sprite to appropriate size
+
+    return sprite;
+}
+
+// Create a single 2D sprite text and position it on the floor
+const textSprite = createTextSprite("Running idiots");
+textSprite.position.set(0, -1, 0); // Position the text slightly above the ground
+scene.add(textSprite);
+
 window.addEventListener('resize', function () {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
-
 
 const planeGeo = new THREE.PlaneGeometry(25, 25);
 const planeMat = new THREE.MeshBasicMaterial({ visible: false });
@@ -143,7 +165,6 @@ window.addEventListener('click', function () {
         if (intersects[i].object.name === 'plane') {
             target.position.set(intersects[i].point.x, 0, intersects[i].point.z);
             
-            
             modelManager.addArriveBehavior(target);
             modelManagerOne.addArriveBehavior(target);
             modelManagerTwo.addArriveBehavior(target);
@@ -151,7 +172,6 @@ window.addEventListener('click', function () {
         }
     }
 });
-
 
 modelManager.addArriveBehavior(target);
 modelManagerOne.addArriveBehavior(target);
@@ -163,7 +183,6 @@ const time = new YUKA.Time();
 function animate(t) {
     const delta = time.update().getDelta();
 
-    
     modelManager.update(delta);
     modelManagerOne.update(delta);
     modelManagerTwo.update(delta);
