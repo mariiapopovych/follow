@@ -4,9 +4,6 @@ import * as YUKA from 'yuka';
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-
-import modelUrl from './model3d/man.gltf';
-
 document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
@@ -27,50 +24,121 @@ scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1);
 scene.add(directionalLight);
 
-const vehicle = new YUKA.Vehicle();
-vehicle.scale.set(0.15, 0.15, 0.15);
+const entityManager = new YUKA.EntityManager();
+const loader = new GLTFLoader();
 
-function sync(entity, renderComponent) {
-    renderComponent.matrix.copy(entity.worldMatrix);
+import modelUrl from './model3d/man.gltf';
+
+class Model3D {
+    constructor(scene, loader, entityManager) {
+        this.scene = scene;
+        this.loader = loader;
+        this.entityManager = entityManager;
+        this.models = [];
+        this.mixers = [];
+    }
+
+    createInstance(position = new THREE.Vector3(0, 0, 0), scale = new THREE.Vector3(0.05, 0.05, 0.05)) {
+        const vehicle = new YUKA.Vehicle();
+        vehicle.scale.copy(scale);
+
+        this.entityManager.add(vehicle);
+
+        const group = new THREE.Group();
+        this.scene.add(group);
+
+        this.loader.load(modelUrl, (gltf) => {
+            const model = gltf.scene;
+            model.matrixAutoUpdate = false;
+            group.add(model);
+            vehicle.setRenderComponent(model, (entity, renderComponent) => {
+                renderComponent.matrix.copy(entity.worldMatrix);
+            });
+
+            // animations
+            let mixer = null;
+            if (gltf.animations.length > 0) {
+                mixer = new THREE.AnimationMixer(model);
+                const action = mixer.clipAction(gltf.animations[0]);
+                action.play();
+                this.mixers.push({ mixer, action });
+            }
+
+            group.position.copy(position);
+            vehicle.position.copy(position);
+
+            this.models.push({ group, vehicle });
+        });
+    }
+
+    addArriveBehavior(target) {
+        const radius = 0.2; 
+        const deceleration = 2; 
+
+        this.models.forEach(({ vehicle }) => {
+            vehicle.steering.clear(); 
+
+            const arriveBehavior = new YUKA.ArriveBehavior(target.position, radius, deceleration);
+            vehicle.steering.add(arriveBehavior);
+            vehicle.maxSpeed = 0.4; 
+            vehicle.arriveTolerance = 0.5; 
+        });
+    }
+
+    update(delta) {
+        this.entityManager.update(delta);
+
+        for (let { mixer, action } of this.mixers) {
+            if (mixer && action && !action.paused) {
+                mixer.update(delta);
+            }
+        }
+    }
+
+    getModelsCount() {
+        return this.models.length;
+    }
 }
 
-const entityManager = new YUKA.EntityManager();
-entityManager.add(vehicle);
+// Instantiate multiple Model3D managers
+const modelManager = new Model3D(scene, loader, entityManager);
+const modelManagerOne = new Model3D(scene, loader, entityManager);
+const modelManagerTwo = new Model3D(scene, loader, entityManager);
+const modelManagerThree = new Model3D(scene, loader, entityManager);
 
-const loader = new GLTFLoader();
-const group = new THREE.Group();
-let mixer;  // Used for managing animations
-let action; // Store the animation action for pausing
+// Add instances to each model manager
+modelManager.createInstance(new THREE.Vector3(0, 0, 0));
+modelManagerOne.createInstance(new THREE.Vector3(1, 0, 1));
+modelManagerTwo.createInstance(new THREE.Vector3(-1, 0, 1));
+modelManagerThree.createInstance(new THREE.Vector3(2, 0, -2));
 
-// Load the GLTF model
-loader.load(modelUrl, function (gltf) {
-    const model = gltf.scene;
-    model.matrixAutoUpdate = false;
-    group.add(model);
-    scene.add(group);
-    vehicle.setRenderComponent(model, sync);
+// Function to create 2D text sprite
+function createTextSprite(message) {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    context.font = '30px Arial';
+    context.fillStyle = 'white';
+    context.fillText(message, 0, 30);
 
-    // Handle animations
-    if (gltf.animations.length > 0) {
-        mixer = new THREE.AnimationMixer(model);
-        action = mixer.clipAction(gltf.animations[0]);
-        action.play();
-    }
-});
+    const texture = new THREE.Texture(canvas);
+    texture.needsUpdate = true;
 
-const target = new YUKA.GameEntity();
-entityManager.add(target);
+    const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+    const sprite = new THREE.Sprite(spriteMaterial);
+    sprite.scale.set(10, 5, 1); // Scale the sprite to appropriate size
 
-const arriveBehavior = new YUKA.ArriveBehavior(target.position, 3, 0.5);
-vehicle.steering.add(arriveBehavior);
-vehicle.position.set(-3, 0, -3);
-vehicle.maxSpeed = 300;
+    return sprite;
+}
 
-const mousePosition = new THREE.Vector2();
+// Create a single 2D sprite text and position it on the floor
+const textSprite = createTextSprite("Running idiots");
+textSprite.position.set(0, -1, 0); // Position the text slightly above the ground
+scene.add(textSprite);
 
-window.addEventListener('mousemove', function (e) {
-    mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
-    mousePosition.y = -(e.clientY / window.innerHeight) * 2 + 1;
+window.addEventListener('resize', function () {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
 const planeGeo = new THREE.PlaneGeometry(25, 25);
@@ -81,6 +149,14 @@ scene.add(planeMesh);
 planeMesh.name = 'plane';
 
 const raycaster = new THREE.Raycaster();
+const mousePosition = new THREE.Vector2();
+const target = new YUKA.GameEntity();
+entityManager.add(target);
+
+window.addEventListener('mousemove', function (e) {
+    mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mousePosition.y = -(e.clientY / window.innerHeight) * 2 + 1;
+});
 
 window.addEventListener('click', function () {
     raycaster.setFromCamera(mousePosition, camera);
@@ -88,60 +164,31 @@ window.addEventListener('click', function () {
     for (let i = 0; i < intersects.length; i++) {
         if (intersects[i].object.name === 'plane') {
             target.position.set(intersects[i].point.x, 0, intersects[i].point.z);
+            
+            modelManager.addArriveBehavior(target);
+            modelManagerOne.addArriveBehavior(target);
+            modelManagerTwo.addArriveBehavior(target);
+            modelManagerThree.addArriveBehavior(target);
         }
     }
 });
 
-const time = new YUKA.Time();
+modelManager.addArriveBehavior(target);
+modelManagerOne.addArriveBehavior(target);
+modelManagerTwo.addArriveBehavior(target);
+modelManagerThree.addArriveBehavior(target);
 
-let previousPosition = new THREE.Vector3();
-let stationaryTime = 0;
-const STATIONARY_THRESHOLD = 0.5; // 2 seconds
-let isAnimationPaused = false;
+const time = new YUKA.Time();
 
 function animate(t) {
     const delta = time.update().getDelta();
-    entityManager.update(delta);
 
-    // Check if the vehicle has moved
-    const currentPosition = vehicle.position.clone();
-    if (currentPosition.distanceTo(previousPosition) < 0.01) {
-        // If vehicle is still (position difference is very small)
-        stationaryTime += delta;
-        if (stationaryTime >= STATIONARY_THRESHOLD && !isAnimationPaused) {
-            // Stop the animation if stationary for more than the threshold
-            if (action) {
-                action.paused = true;
-                isAnimationPaused = true;
-                console.log('Animation paused');
-            }
-        }
-    } else {
-        // If the position changed, reset stationary time and play animation if paused
-        stationaryTime = 0;
-        if (isAnimationPaused) {
-            if (action) {
-                action.paused = false;
-                isAnimationPaused = false;
-                console.log('Animation resumed');
-            }
-        }
-    }
-    previousPosition.copy(currentPosition);
+    modelManager.update(delta);
+    modelManagerOne.update(delta);
+    modelManagerTwo.update(delta);
+    modelManagerThree.update(delta);
 
-    // Update animations if mixer is defined and not paused
-    if (mixer && action && !action.paused) {
-        mixer.update(delta);
-    }
-
-    group.position.y = 0.05 * Math.sin(t / 500);
     renderer.render(scene, camera);
 }
 
 renderer.setAnimationLoop(animate);
-
-window.addEventListener('resize', function () {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
