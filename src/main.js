@@ -4,6 +4,8 @@ import * as YUKA from 'yuka';
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;  
+renderer.shadowMap.type = THREE.PCFSoftShadowMap; 
 document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
@@ -18,11 +20,29 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(0, 10, 4);
 camera.lookAt(scene.position);
 
-const ambientLight = new THREE.AmbientLight(0x333333);
+const ambientLight = new THREE.AmbientLight(0x333333, 0.3); 
 scene.add(ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1);
+directionalLight.position.set(10, 10, 10);
+directionalLight.castShadow = true; 
 scene.add(directionalLight);
+
+const spotLight = new THREE.SpotLight(0x999999);
+scene.add(spotLight);
+spotLight.position.set(0, 8, 4);
+spotLight.intensity = 2;  
+spotLight.angle = 0.45;
+spotLight.penumbra = 0.3;
+spotLight.castShadow = true;
+
+spotLight.shadow.mapSize.width = 2048; 
+spotLight.shadow.mapSize.height = 2048;
+spotLight.shadow.camera.near = 1;  
+spotLight.shadow.camera.far = 20;  
+spotLight.shadow.focus = 1;
+
+
 
 const entityManager = new YUKA.EntityManager();
 const loader = new GLTFLoader();
@@ -55,6 +75,13 @@ class Model3D {
                 renderComponent.matrix.copy(entity.worldMatrix);
             });
 
+            model.traverse(function (node) {
+                if (node.isMesh) {
+                    node.castShadow = true;   
+                    node.receiveShadow = true; 
+                }
+            });
+
             // animations
             let mixer = null;
             if (gltf.animations.length > 0) {
@@ -72,16 +99,16 @@ class Model3D {
     }
 
     addArriveBehavior(target) {
-        const radius = 0.2; 
-        const deceleration = 2; 
+        const radius = 0.2;
+        const deceleration = 2;
 
         this.models.forEach(({ vehicle }) => {
-            vehicle.steering.clear(); 
+            vehicle.steering.clear();
 
             const arriveBehavior = new YUKA.ArriveBehavior(target.position, radius, deceleration);
             vehicle.steering.add(arriveBehavior);
-            vehicle.maxSpeed = 0.4; 
-            vehicle.arriveTolerance = 0.5; 
+            vehicle.maxSpeed = 0.4;
+            vehicle.arriveTolerance = 0.5;
         });
     }
 
@@ -100,19 +127,19 @@ class Model3D {
     }
 }
 
-// Instantiate multiple Model3D managers
+//multiple Model3D 
 const modelManager = new Model3D(scene, loader, entityManager);
 const modelManagerOne = new Model3D(scene, loader, entityManager);
 const modelManagerTwo = new Model3D(scene, loader, entityManager);
 const modelManagerThree = new Model3D(scene, loader, entityManager);
 
-// Add instances to each model manager
+// instances to each model manager
 modelManager.createInstance(new THREE.Vector3(0, 0, 0));
 modelManagerOne.createInstance(new THREE.Vector3(1, 0, 1));
 modelManagerTwo.createInstance(new THREE.Vector3(-1, 0, 1));
 modelManagerThree.createInstance(new THREE.Vector3(2, 0, -2));
 
-// Function to create 2D text sprite
+
 function createTextSprite(message) {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
@@ -125,14 +152,14 @@ function createTextSprite(message) {
 
     const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
     const sprite = new THREE.Sprite(spriteMaterial);
-    sprite.scale.set(10, 5, 1); // Scale the sprite to appropriate size
+    sprite.scale.set(10, 5, 1); 
 
     return sprite;
 }
 
-// Create a single 2D sprite text and position it on the floor
+
 const textSprite = createTextSprite("Running idiots");
-textSprite.position.set(0, -1, 0); // Position the text slightly above the ground
+textSprite.position.set(0, -1, 0); 
 scene.add(textSprite);
 
 window.addEventListener('resize', function () {
@@ -141,10 +168,12 @@ window.addEventListener('resize', function () {
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+
 const planeGeo = new THREE.PlaneGeometry(25, 25);
-const planeMat = new THREE.MeshBasicMaterial({ visible: false });
+const planeMat = new THREE.MeshStandardMaterial({ color: 0xCCCCCC }); 
 const planeMesh = new THREE.Mesh(planeGeo, planeMat);
 planeMesh.rotation.x = -0.5 * Math.PI;
+planeMesh.receiveShadow = true;  
 scene.add(planeMesh);
 planeMesh.name = 'plane';
 
@@ -164,7 +193,7 @@ window.addEventListener('click', function () {
     for (let i = 0; i < intersects.length; i++) {
         if (intersects[i].object.name === 'plane') {
             target.position.set(intersects[i].point.x, 0, intersects[i].point.z);
-            
+
             modelManager.addArriveBehavior(target);
             modelManagerOne.addArriveBehavior(target);
             modelManagerTwo.addArriveBehavior(target);
