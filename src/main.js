@@ -45,7 +45,7 @@ spotLight.shadow.focus = 1;
 const entityManager = new YUKA.EntityManager();
 const loader = new GLTFLoader();
 
-import modelUrl from './model3d/man.gltf';
+import modelUrl from './model3d/maxime.glb';
 
 class Model3D {
     constructor(scene, loader, entityManager) {
@@ -56,7 +56,7 @@ class Model3D {
         this.mixers = [];
     }
 
-    createInstance(position = new THREE.Vector3(0, 0, 0), scale = new THREE.Vector3(0.05, 0.05, 0.05)) {
+    createInstance(position = new THREE.Vector3(0, 0, 0), scale = new THREE.Vector3(2, 2, 2)) {
         const vehicle = new YUKA.Vehicle();
         vehicle.scale.copy(scale);
 
@@ -230,3 +230,41 @@ function animate(t) {
 }
 
 renderer.setAnimationLoop(animate);
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const emailLink = document.getElementById("emailLink");
+    const email = "mariia.popovych@powercoders.org";  
+    const mailText = "Mail";
+    const randomChars = 'ag56789!@_#$%^&*()';
+
+    function getRandomCharacter() {
+        return randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+    }
+
+    function animateText(targetText) {
+        const textLength = targetText.length;          
+        let charIndex = 0;                         
+        const intervalTime = 50;                  
+
+        const animationInterval = setInterval(function() {
+            if (charIndex < textLength) {
+                const displayString = targetText.substring(0, charIndex) + getRandomCharacter().repeat(textLength - charIndex);
+                emailLink.textContent = displayString; 
+                charIndex++;
+            } else {
+                clearInterval(animationInterval);
+                emailLink.textContent = targetText; 
+            }
+        }, intervalTime);
+    }
+
+    emailLink.addEventListener("mouseenter", function() {
+        animateText(email);  
+    });
+
+    emailLink.addEventListener("mouseleave", function() {
+        animateText(mailText);  
+    });
+});
+

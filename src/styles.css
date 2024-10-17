@@ -6,3 +6,57 @@
     z-index: 100;
 }
 
+body {
+    position: relative;
+    margin: 0;
+    height: 100vh; 
+}
+
+.aboutme {
+    position: absolute;
+    color: black;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    text-align: center; 
+}
+
+.aboutme button {
+    height: 5rem;
+    width: 15rem;
+    background-color: greenyellow;
+    color: #000;
+    font-size: 2rem;
+    margin: 0 auto; 
+    display: block; 
+    cursor: pointer;
+}
+
+a{
+    text-decoration: none;
+}
+
+.social-links{
+    position:absolute;
+}
+
+.email-link {
+    font-size: 24px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    cursor: pointer; 
+}
+
+.email-link:hover {
+    color: lightgreen;
+}
+
+form{
+position: absolute;
+   margin: 70vh 50vw; 
+   transform: translate(-50);
+}
