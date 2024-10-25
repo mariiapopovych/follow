@@ -9,7 +9,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
-//renderer.setClearColor(0xFFFFFF);
+
 
 const camera = new THREE.PerspectiveCamera(
     45,
@@ -169,7 +169,7 @@ function createTextOnFloor(message, size = 1024) {
     return textPlane;
 }
 
-const textOnFloor = createTextOnFloor('HELLO');
+const textOnFloor = createTextOnFloor('Hello.');
 scene.add(textOnFloor);
 
 window.addEventListener('resize', function () {
@@ -242,10 +242,10 @@ document.addEventListener("DOMContentLoaded", function() {
         return randomChars.charAt(Math.floor(Math.random() * randomChars.length));
     }
 
-    function animateText(targetText) {
+    function animateText(targetText, callback) { 
         const textLength = targetText.length;          
         let charIndex = 0;                         
-        const intervalTime = 50;                  
+        const intervalTime = 50;                   
 
         const animationInterval = setInterval(function() {
             if (charIndex < textLength) {
@@ -255,16 +255,21 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 clearInterval(animationInterval);
                 emailLink.textContent = targetText; 
+                if (typeof callback === 'function') callback(); 
             }
         }, intervalTime);
     }
 
-    emailLink.addEventListener("mouseenter", function() {
-        animateText(email);  
+    emailLink.addEventListener("click", function(event) {
+        event.preventDefault(); 
+        animateText(email, function() { 
+            window.location.href = `mailto:${email}`; 
+        });
     });
 
     emailLink.addEventListener("mouseleave", function() {
         animateText(mailText);  
     });
 });
+
 
