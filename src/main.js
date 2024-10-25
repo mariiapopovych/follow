@@ -234,42 +234,98 @@ renderer.setAnimationLoop(animate);
 
 document.addEventListener("DOMContentLoaded", function() {
     const emailLink = document.getElementById("emailLink");
-    const email = "mariia.popovych@powercoders.org";  
+    const linkedinLink = document.getElementById("linkedinLink");
+    const phoneLink = document.getElementById("phoneLink");
+    const instaLink = document.getElementById("instaLink");
+    
+    const email = "mariia.popovych@powercoders.org";
+    const phone = "41796037689";
+    const linkedin = "https://www.linkedin.com/feed/";
+    const insta = "https://www.instagram.com/marypops32/";
+    
     const mailText = "Mail";
+    const phoneText = "Phone";
+    const linkedinText = "LinkedIn";
+    const instaText = "Instagram";
     const randomChars = 'ag56789!@_#$%^&*()';
 
     function getRandomCharacter() {
         return randomChars.charAt(Math.floor(Math.random() * randomChars.length));
     }
 
-    function animateText(targetText, callback) { 
-        const textLength = targetText.length;          
-        let charIndex = 0;                         
-        const intervalTime = 50;                   
+    function animateText(linkElement, targetText, callback) {
+        const textLength = targetText.length;
+        let charIndex = 0;
+        const intervalTime = 50;
 
         const animationInterval = setInterval(function() {
             if (charIndex < textLength) {
                 const displayString = targetText.substring(0, charIndex) + getRandomCharacter().repeat(textLength - charIndex);
-                emailLink.textContent = displayString; 
+                linkElement.textContent = displayString;
                 charIndex++;
             } else {
                 clearInterval(animationInterval);
-                emailLink.textContent = targetText; 
-                if (typeof callback === 'function') callback(); 
+                linkElement.textContent = targetText;
+                if (typeof callback === 'function') callback();
             }
         }, intervalTime);
     }
 
+    // Email 
     emailLink.addEventListener("click", function(event) {
-        event.preventDefault(); 
-        animateText(email, function() { 
-            window.location.href = `mailto:${email}`; 
+        event.preventDefault();
+        animateText(emailLink, email, function() {
+            window.location.href = `mailto:${email}`;
         });
     });
 
     emailLink.addEventListener("mouseleave", function() {
-        animateText(mailText);  
+        animateText(emailLink, mailText);
+    });
+
+    // LinkedIn 
+linkedinLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    animateText(linkedinLink, linkedin, function() {
+        window.open(linkedin, "_blank"); 
     });
 });
+
+linkedinLink.addEventListener("mouseleave", function() {
+    animateText(linkedinLink, linkedinText);
+});
+
+// Insta 
+instaLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    animateText(instaLink, insta, function() {
+        window.open(insta, "_blank"); 
+    });
+});
+
+linkedinLink.addEventListener("mouseleave", function() {
+    animateText(instaLink, instaText);
+});
+
+instaLink.addEventListener("mouseleave", function() {
+    animateText(instaLink, instaText);
+});
+
+    // Phone 
+if (phoneLink) {
+    phoneLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        animateText(phoneLink, phone, function() {
+            window.location.href = `tel:${phone}`; 
+        });
+    });
+
+    phoneLink.addEventListener("mouseleave", function() {
+        animateText(phoneLink, phoneText);
+    });
+}
+});
+
+
 
 

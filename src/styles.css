@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'code';
-    src: url('./fonts/ProggySquare.ttf') format('truetype'); /* Correct format */
+    src: url('./fonts/ProggySquare.ttf') format('truetype'); 
     font-weight: normal;
     font-style: normal;
 }
@@ -17,7 +17,7 @@
 }
 
 #ascii-frog {
-    color: #fff; 
+    color: #32CD32; 
     font-family: monospace; 
     font-size: 1rem; 
     text-align: center;
@@ -62,6 +62,7 @@ a{
 }
 
 .email-link {
+    font-family: 'code';
     font-size: 24px;
     text-decoration: none;
     color: black;
@@ -74,7 +75,7 @@ a{
 }
 
 .email-link:hover {
-    color: lightgreen;
+    color: #32CD32;
 }
 
 form{
