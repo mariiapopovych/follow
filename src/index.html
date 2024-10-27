@@ -5,31 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="./styles.css">
-    
-
 
     <title>Interactive Scene One</title>
     <style>
+       
+        @font-face {
+            font-family:'code';
+            src: url('./fonts/ProggySquare.ttf') format('truetype'); 
+        }
+
         @media (forced-colors: active) {
             body {
-              forced-color-adjust: none; 
+                forced-color-adjust: none; 
             }
-          
         }
+
         body {
             margin: 0;
             overflow: hidden; 
+            background-color: black; 
+            color: #32CD32; 
+            font-family:'code'; 
+            font-size: 1em;
+        }
+
+        
+        #preloader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.5s ease;
+        }
+
+    
+        #ascii-frog {
+            display: none;
+            text-align: center;
+            white-space: pre;
+            font-size: 1em;
+            color: #32CD32; 
+            margin: 0 auto; 
+        }
+
+        
+        #animated-text {
+            text-align: center; 
+            white-space: pre;
         }
     </style>
 </head>
 <body>
-    <div id = "preloader">  
-            <pre id="ascii-frog">
-                     @..@
-                    (----)
-                  ( >__< )
-                   ^^ ~~ ^^
-            </pre>         
+    <div id="preloader">  
+        <pre id="animated-text">hello...</pre>
+        <pre id="ascii-frog">
+                 @..@
+                (----)
+              ( >__< )
+               ^^ ~~ ^^
+        </pre>         
     </div>
 
     <header>
@@ -37,26 +75,73 @@
     </header>
 
     <div class="aboutme">
-        <h3>I am a programming enthusiast skilled in crafting interactive experiences, data processing and machine learning. Walk around to explore. </h3>
+        <h3>I am a programming enthusiast skilled in crafting interactive experiences, data processing and machine learning. Walk around to explore.</h3>
     </div>
 
     <form onsubmit="return false;">
         <div class="social-links" style="display: flex; gap: 10px;">
-            <a href="mailto:mariia.popovych@powercoders.org" class="email-link" id="emailLink">Mail</a>
-            <a href="https://www.linkedin.com/feed/" class="email-link" id="linkedinLink">LinkedIn</a>
+            <a href="#" class="email-link" id="emailLink">Mail</a>
+            <a href="#" class="email-link" id="linkedinLink">LinkedIn</a>
             <a href="#" class="email-link" id="phoneLink">Phone</a>
-            <a href="https://www.instagram.com/marypops32/" class="email-link" id="instaLink">Instagram</a>
+            <a href="#" class="email-link" id="instaLink">Instagram</a>
         </div>
     </form>
 
     <script type="module" src="./main.js"></script>
 
     <script>
-        var loader = document.getElementById("preloader");
-        window.addEventListener("load", setTimeout(()=>{
+        const texts = ["привіт...", "bonjour..."];
+        const randomChars = 'ag56789!@_#$%^&*()r';
+        let currentIndex = 0;
 
-            loader.style.display = "none";}, 1000))
+        const animatedText = document.getElementById("animated-text");
+        const asciiFrog = document.getElementById("ascii-frog");
+
+        function getRandomCharacter() {
+            return randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+        }
+
+        function animateText(targetText, callback) {
+            const textLength = targetText.length;
+            let charIndex = 0;
+            const intervalTime = 15; 
+
+            const animationInterval = setInterval(function() {
+                if (charIndex < textLength) {
+                    const displayString = targetText.substring(0, charIndex) + getRandomCharacter().repeat(textLength - charIndex);
+                    animatedText.textContent = displayString;
+                    charIndex++;
+                } else {
+                    clearInterval(animationInterval);
+                    animatedText.textContent = targetText; 
+                    if (typeof callback === 'function') callback(); 
+                }
+            }, intervalTime);
+        }
+
+        function cycleText() {
+            animateText(texts[currentIndex], function() {
+                currentIndex++;
+                if (currentIndex < texts.length) {
+                    setTimeout(cycleText, 1000); 
+                } else {
+                    
+                    animatedText.style.display = "none";
+                    asciiFrog.style.display = "block";
+
+                    
+                    setTimeout(() => {
+                        document.getElementById("preloader").style.opacity = "0";
+                        setTimeout(() => {
+                            document.getElementById("preloader").style.display = "none";
+                        }, 500);
+                    }, 500);
+                }
+            });
+        }
+
+        
+        window.addEventListener("load", cycleText);
     </script>
 </body>
 </html>
-
