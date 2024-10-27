@@ -5,10 +5,26 @@
     font-style: normal;
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'code', Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #preloader {
     background: #000; 
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     position: fixed;
     z-index: 100;
     display: flex;
@@ -18,47 +34,58 @@
 
 #ascii-frog {
     color: #32CD32; 
-    font-family: monospace; 
-    font-size: 1rem; 
+    font-family: 'code'; 
+    font-size: 1.5rem; 
     text-align: center;
+    margin: auto; 
+    transform: translate(-50%, -50%);
 }
 
+header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    padding: 1rem;
+}
 
-body {
-    position: relative;
-    margin: 0;
-    height: 100vh; 
+.logo {
+    font-family: 'code', Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 1rem;
 }
 
 .aboutme {
-    position: absolute;
     color: black;
-    font-size: 1rem;
+    font-size: 1rem;  
     font-family: 'code', Arial, Helvetica, sans-serif;
+    text-align: center;
+    padding: 0.5rem;
+    position: absolute;
     top: 60%;
     left: 50%;
-    transform: translate(-50%, -50%); 
-    text-align: center; 
-    padding:0.5rem;
+    transform: translate(-50%, -50%);
+    line-height: 1.5; 
 }
 
-.aboutme button {
-    height: 5rem;
-    width: 15rem;
-    background-color: greenyellow;
-    color: #000;
-    font-size: 12rem;
-    margin: 0 auto; 
-    display: block; 
-    cursor: pointer;
+
+@media (max-width: 768px) {
+    .aboutme {
+        font-size: 0.875rem;  
+        line-height: 1.2;  
+        width: 80%;
+    }
 }
 
-a{
-    text-decoration: none;
-}
-
-.social-links{
-    position:absolute;
+.social-links {
+    display: flex;
+    gap: 1rem;
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .email-link {
@@ -78,11 +105,16 @@ a{
     color: #32CD32;
 }
 
-form{
-position: absolute;
-   margin: 70vh 50vw; 
-   transform: translate(-50);
-   display: flex;
+form {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+    width: 80%;
+    max-width: 400px;
 }

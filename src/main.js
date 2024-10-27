@@ -124,7 +124,7 @@ class Model3D {
     }
 }
 
-// Multiple Model3D instances
+// Model3D instances
 const modelManager = new Model3D(scene, loader, entityManager);
 const modelManagerOne = new Model3D(scene, loader, entityManager);
 const modelManagerTwo = new Model3D(scene, loader, entityManager);
@@ -135,14 +135,14 @@ modelManagerOne.createInstance(new THREE.Vector3(1, 0, 1));
 modelManagerTwo.createInstance(new THREE.Vector3(-1, 0, 1));
 modelManagerThree.createInstance(new THREE.Vector3(2, 0, -2));
 
-// Create high-resolution text on the floor
+//text on the floor
 function createTextOnFloor(message, size = 1024) {
     const canvas = document.createElement('canvas');
     canvas.width = size;
     canvas.height = size;
     const context = canvas.getContext('2d');
     
-    // High-resolution text rendering
+    //text rendering
     context.font = `${size / 4}px Impact`;
     context.fillStyle = 'black';
     context.textAlign = 'center';
@@ -162,8 +162,8 @@ function createTextOnFloor(message, size = 1024) {
         textMaterial
     );
     
-    textPlane.rotation.x = -Math.PI / 2; // Face upward like the floor
-    textPlane.position.set(0, 0.01, 0); // Slightly above the floor to avoid z-fighting
+    textPlane.rotation.x = -Math.PI / 2; // Face upward 
+    textPlane.position.set(0, 0.01, 0); 
     textPlane.receiveShadow = true;
 
     return textPlane;
@@ -172,6 +172,7 @@ function createTextOnFloor(message, size = 1024) {
 const textOnFloor = createTextOnFloor('Hello.');
 scene.add(textOnFloor);
 
+
 window.addEventListener('resize', function () {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -179,7 +180,7 @@ window.addEventListener('resize', function () {
 });
 
 const planeGeo = new THREE.PlaneGeometry(25, 25);
-const planeMat = new THREE.MeshStandardMaterial({ color: 0xFFFFFF });
+const planeMat = new THREE.MeshStandardMaterial({ color: 0xFFFFFF   });
 const planeMesh = new THREE.Mesh(planeGeo, planeMat);
 planeMesh.rotation.x = -0.5 * Math.PI;
 planeMesh.receiveShadow = true;
