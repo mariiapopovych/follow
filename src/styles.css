@@ -55,6 +55,7 @@ header {
     font-family: 'code', Arial, Helvetica, sans-serif;
     text-align: center;
     font-size: 1rem;
+    color: black;
 }
 
 .aboutme {
@@ -79,6 +80,7 @@ header {
     }
 }
 
+
 .social-links {
     display: flex;
     gap: 1rem;
@@ -95,7 +97,7 @@ header {
     color: black;
     font-weight: bold;
     transition: color 0.3s ease;
-    cursor: pointer; 
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,3 +120,26 @@ form {
     width: 80%;
     max-width: 400px;
 }
+
+
+@media (max-width: 600px) {
+    .social-links {
+        flex-direction: column; 
+        gap: 0.5rem;
+        width: 100%; 
+        left: 0; 
+        transform: none;
+        padding: 0 1rem; 
+        align-items: center; 
+    }
+    
+    .email-link {
+        font-size: 18px; 
+    }
+    
+    form {
+        top: 85%; 
+        padding: 1.5rem;
+    }
+}
+

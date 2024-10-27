@@ -56,7 +56,7 @@ class Model3D {
         this.mixers = [];
     }
 
-    createInstance(position = new THREE.Vector3(0, 0, 0), scale = new THREE.Vector3(2, 2, 2)) {
+    createInstance(position = new THREE.Vector3(0, 0, 0), scale = new THREE.Vector3(1.2, 1.2, 1.2)) {
         const vehicle = new YUKA.Vehicle();
         vehicle.scale.copy(scale);
 
@@ -143,7 +143,7 @@ function createTextOnFloor(message, size = 1024) {
     const context = canvas.getContext('2d');
     
     //text rendering
-    context.font = `${size / 4}px Impact`;
+    context.font = `${size / 4}px 'code'`;
     context.fillStyle = 'black';
     context.textAlign = 'center';
     context.fillText(message, size / 2, size / 2);
@@ -169,7 +169,7 @@ function createTextOnFloor(message, size = 1024) {
     return textPlane;
 }
 
-const textOnFloor = createTextOnFloor('Hello.');
+const textOnFloor = createTextOnFloor('Hello');
 scene.add(textOnFloor);
 
 
