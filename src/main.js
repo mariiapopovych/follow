@@ -9,7 +9,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
-//renderer.setClearColor(0xFFFFFF);
+
 
 const camera = new THREE.PerspectiveCamera(
     45,
@@ -45,7 +45,7 @@ spotLight.shadow.focus = 1;
 const entityManager = new YUKA.EntityManager();
 const loader = new GLTFLoader();
 
-import modelUrl from './model3d/man.gltf';
+import modelUrl from './model3d/maxime.glb';
 
 class Model3D {
     constructor(scene, loader, entityManager) {
@@ -56,7 +56,7 @@ class Model3D {
         this.mixers = [];
     }
 
-    createInstance(position = new THREE.Vector3(0, 0, 0), scale = new THREE.Vector3(0.05, 0.05, 0.05)) {
+    createInstance(position = new THREE.Vector3(0, 0, 0), scale = new THREE.Vector3(2, 2, 2)) {
         const vehicle = new YUKA.Vehicle();
         vehicle.scale.copy(scale);
 
@@ -124,7 +124,7 @@ class Model3D {
     }
 }
 
-// Multiple Model3D instances
+// Model3D instances
 const modelManager = new Model3D(scene, loader, entityManager);
 const modelManagerOne = new Model3D(scene, loader, entityManager);
 const modelManagerTwo = new Model3D(scene, loader, entityManager);
@@ -135,14 +135,14 @@ modelManagerOne.createInstance(new THREE.Vector3(1, 0, 1));
 modelManagerTwo.createInstance(new THREE.Vector3(-1, 0, 1));
 modelManagerThree.createInstance(new THREE.Vector3(2, 0, -2));
 
-// Create high-resolution text on the floor
+//text on the floor
 function createTextOnFloor(message, size = 1024) {
     const canvas = document.createElement('canvas');
     canvas.width = size;
     canvas.height = size;
     const context = canvas.getContext('2d');
     
-    // High-resolution text rendering
+    //text rendering
     context.font = `${size / 4}px Impact`;
     context.fillStyle = 'black';
     context.textAlign = 'center';
@@ -162,15 +162,16 @@ function createTextOnFloor(message, size = 1024) {
         textMaterial
     );
     
-    textPlane.rotation.x = -Math.PI / 2; // Face upward like the floor
-    textPlane.position.set(0, 0.01, 0); // Slightly above the floor to avoid z-fighting
+    textPlane.rotation.x = -Math.PI / 2; // Face upward 
+    textPlane.position.set(0, 0.01, 0); 
     textPlane.receiveShadow = true;
 
     return textPlane;
 }
 
-const textOnFloor = createTextOnFloor('HELLO');
+const textOnFloor = createTextOnFloor('Hello.');
 scene.add(textOnFloor);
+
 
 window.addEventListener('resize', function () {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -179,7 +180,7 @@ window.addEventListener('resize', function () {
 });
 
 const planeGeo = new THREE.PlaneGeometry(25, 25);
-const planeMat = new THREE.MeshStandardMaterial({ color: 0xFFFFFF });
+const planeMat = new THREE.MeshStandardMaterial({ color: 0xFFFFFF   });
 const planeMesh = new THREE.Mesh(planeGeo, planeMat);
 planeMesh.rotation.x = -0.5 * Math.PI;
 planeMesh.receiveShadow = true;
@@ -230,3 +231,102 @@ function animate(t) {
 }
 
 renderer.setAnimationLoop(animate);
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const emailLink = document.getElementById("emailLink");
+    const linkedinLink = document.getElementById("linkedinLink");
+    const phoneLink = document.getElementById("phoneLink");
+    const instaLink = document.getElementById("instaLink");
+    
+    const email = "mariia.popovych@powercoders.org";
+    const phone = "41796037689";
+    const linkedin = "https://www.linkedin.com/feed/";
+    const insta = "https://www.instagram.com/marypops32/";
+    
+    const mailText = "Mail";
+    const phoneText = "Phone";
+    const linkedinText = "LinkedIn";
+    const instaText = "Instagram";
+    const randomChars = 'ag56789!@_#$%^&*()';
+
+    function getRandomCharacter() {
+        return randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+    }
+
+    function animateText(linkElement, targetText, callback) {
+        const textLength = targetText.length;
+        let charIndex = 0;
+        const intervalTime = 50;
+
+        const animationInterval = setInterval(function() {
+            if (charIndex < textLength) {
+                const displayString = targetText.substring(0, charIndex) + getRandomCharacter().repeat(textLength - charIndex);
+                linkElement.textContent = displayString;
+                charIndex++;
+            } else {
+                clearInterval(animationInterval);
+                linkElement.textContent = targetText;
+                if (typeof callback === 'function') callback();
+            }
+        }, intervalTime);
+    }
+
+    // Email 
+    emailLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        animateText(emailLink, email, function() {
+            window.location.href = `mailto:${email}`;
+        });
+    });
+
+    emailLink.addEventListener("mouseleave", function() {
+        animateText(emailLink, mailText);
+    });
+
+    // LinkedIn 
+linkedinLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    animateText(linkedinLink, linkedin, function() {
+        window.open(linkedin, "_blank"); 
+    });
+});
+
+linkedinLink.addEventListener("mouseleave", function() {
+    animateText(linkedinLink, linkedinText);
+});
+
+// Insta 
+instaLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    animateText(instaLink, insta, function() {
+        window.open(insta, "_blank"); 
+    });
+});
+
+linkedinLink.addEventListener("mouseleave", function() {
+    animateText(instaLink, instaText);
+});
+
+instaLink.addEventListener("mouseleave", function() {
+    animateText(instaLink, instaText);
+});
+
+    // Phone 
+if (phoneLink) {
+    phoneLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        animateText(phoneLink, phone, function() {
+            window.location.href = `tel:${phone}`; 
+        });
+    });
+
+    phoneLink.addEventListener("mouseleave", function() {
+        animateText(phoneLink, phoneText);
+    });
+}
+});
+
+
+
+

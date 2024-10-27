@@ -23,15 +23,39 @@
     </style>
 </head>
 <body>
+    <div id = "preloader">  
+            <pre id="ascii-frog">
+                     @..@
+                    (----)
+                  ( >__< )
+                   ^^ ~~ ^^
+            </pre>         
+    </div>
 
-    <div id = "preloader"></div>
+    <header>
+        <h3 class="logo">MARIIA POPOVYCH</h3>
+    </header>
+
+    <div class="aboutme">
+        <h3>I am a programming enthusiast skilled in crafting interactive experiences, data processing and machine learning. Walk around to explore. </h3>
+    </div>
+
+    <form onsubmit="return false;">
+        <div class="social-links" style="display: flex; gap: 10px;">
+            <a href="mailto:mariia.popovych@powercoders.org" class="email-link" id="emailLink">Mail</a>
+            <a href="https://www.linkedin.com/feed/" class="email-link" id="linkedinLink">LinkedIn</a>
+            <a href="#" class="email-link" id="phoneLink">Phone</a>
+            <a href="https://www.instagram.com/marypops32/" class="email-link" id="instaLink">Instagram</a>
+        </div>
+    </form>
+
     <script type="module" src="./main.js"></script>
 
     <script>
         var loader = document.getElementById("preloader");
-        window.addEventListener("load", function(){
-            loader.style.display = "none";
-        })
+        window.addEventListener("load", setTimeout(()=>{
+
+            loader.style.display = "none";}, 1000))
     </script>
 </body>
 </html>
