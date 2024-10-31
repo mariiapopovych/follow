@@ -1,14 +1,14 @@
 {
   "name": "contact",
   "version": "1.0.0",
-  "homepage": "https://mariiapopovych.github.io/follow"
+  "homepage": "https://github.com/mariiapopovych/follow"
 ,
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "build": "parcel build src/index.html",
     "start": "parcel src/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build src/index.html --public-url ./"
   },
   "keywords": [],
   "author": "Popovych Mariia",
