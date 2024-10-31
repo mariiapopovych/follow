@@ -1,12 +1,12 @@
 {
-  "name": "threejs-rotating-cube",
+  "name": "contact",
   "version": "1.0.0",
-
+  "homepage": "https://github.com/mariiapopovych/follow",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Popovych Mariia",
   "license": "ISC",
   "description": "",
   "dependencies": {
@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@parcel/transformer-raw": "^2.12.0",
+    "gh-pages": "^6.2.0",
     "parcel": "^2.12.0"
   }
 }

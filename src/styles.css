@@ -35,7 +35,7 @@ html, body {
 #ascii-frog {
     color: #32CD32; 
     font-family: 'code'; 
-    font-size: 1.5rem; 
+    font-size: clamp(1.25rem, 2.5vw, 2rem); 
     text-align: center;
     margin: auto; 
     transform: translate(-50%, -50%);
@@ -54,13 +54,13 @@ header {
 .logo {
     font-family: 'code', Arial, Helvetica, sans-serif;
     text-align: center;
-    font-size: 1rem;
+    font-size: clamp(1rem, 2vw, 1rem);
     color: black;
 }
 
 .aboutme {
     color: black;
-    font-size: 1rem;  
+    font-size: clamp(0.875rem, 1.5vw, 1.125rem); 
     font-family: 'code', Arial, Helvetica, sans-serif;
     text-align: center;
     padding: 0.5rem;
@@ -68,22 +68,12 @@ header {
     top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    line-height: 1.5; 
+    line-height: 1.5;
+    max-width: 90vw;
 }
-
-
-@media (max-width: 768px) {
-    .aboutme {
-        font-size: 0.875rem;  
-        line-height: 1.2;  
-        width: 80%;
-    }
-}
-
 
 .social-links {
     display: flex;
-    gap: 1rem;
     position: absolute;
     bottom: 2rem;
     left: 50%;
@@ -92,7 +82,7 @@ header {
 
 .email-link {
     font-family: 'code';
-    font-size: 24px;
+    font-size: clamp(1rem, 2vw, 1.5rem);
     text-decoration: none;
     color: black;
     font-weight: bold;
@@ -121,25 +111,33 @@ form {
     max-width: 400px;
 }
 
+/* Tablet view */
+@media (max-width: 768px) {
+    .aboutme {
+        font-size: 0.875rem;
+        line-height: 1.2;
+        width: 90%;
+    }
+}
 
+/* Mobile view */
 @media (max-width: 600px) {
     .social-links {
         flex-direction: column; 
         gap: 0.5rem;
-        width: 100%; 
-        left: 0; 
+        width: 100%;
+        left: 0;
         transform: none;
-        padding: 0 1rem; 
-        align-items: center; 
+        padding: 0 1rem;
+        align-items: center;
     }
-    
+
     .email-link {
-        font-size: 18px; 
+        font-size: 1rem; 
     }
-    
+
     form {
-        top: 85%; 
+        top: 85%;
         padding: 1.5rem;
     }
 }
-
