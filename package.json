@@ -1,7 +1,7 @@
 {
   "name": "contact",
   "version": "1.0.0",
-  "homepage": "https://mariiapopovych.github.io/follow/"
+  "homepage": "https://mariiapopovych.github.io/follow"
 ,
   "scripts": {
     "predeploy": "npm run build",
