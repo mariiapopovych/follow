@@ -1,8 +1,7 @@
 {
   "name": "contact",
   "version": "1.0.0",
-  "homepage": "https://github.com/mariiapopovych/follow"
-,
+  "homepage": "https://github.com/mariiapopovych/follow",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
