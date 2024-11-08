@@ -238,16 +238,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const linkedinLink = document.getElementById("linkedinLink");
     const phoneLink = document.getElementById("phoneLink");
     const instaLink = document.getElementById("instaLink");
+    const gitLink = document.getElementById("gitLink");
     
     const email = "mariia.popovych@powercoders.org";
     const phone = "41796037689";
-    const linkedin = "https://www.linkedin.com/feed/";
+    const linkedin = "https://www.linkedin.com/in/mariia-popovych-8a127a243/";
     const insta = "https://www.instagram.com/marypops32/";
+    const git = "https://github.com/mariiapopovych";
     
     const mailText = "Mail";
     const phoneText = "Phone";
     const linkedinText = "LinkedIn";
     const instaText = "Instagram";
+    const gitText = "GitHub";
     const randomChars = 'ag56789!@_#$%^&*()';
 
     function getRandomCharacter() {
@@ -272,61 +275,74 @@ document.addEventListener("DOMContentLoaded", function() {
         }, intervalTime);
     }
 
-    // Email 
-    emailLink.addEventListener("click", function(event) {
-        event.preventDefault();
-        animateText(emailLink, email, function() {
-            window.location.href = `mailto:${email}`;
+    // Email
+    if (emailLink) {
+        emailLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            animateText(emailLink, email, function() {
+                window.location.href = `mailto:${email}`;
+            });
         });
-    });
 
-    emailLink.addEventListener("mouseleave", function() {
-        animateText(emailLink, mailText);
-    });
-
-    // LinkedIn 
-linkedinLink.addEventListener("click", function(event) {
-    event.preventDefault();
-    animateText(linkedinLink, linkedin, function() {
-        window.open(linkedin, "_blank"); 
-    });
-});
-
-linkedinLink.addEventListener("mouseleave", function() {
-    animateText(linkedinLink, linkedinText);
-});
-
-// Insta 
-instaLink.addEventListener("click", function(event) {
-    event.preventDefault();
-    animateText(instaLink, insta, function() {
-        window.open(insta, "_blank"); 
-    });
-});
-
-linkedinLink.addEventListener("mouseleave", function() {
-    animateText(instaLink, instaText);
-});
-
-instaLink.addEventListener("mouseleave", function() {
-    animateText(instaLink, instaText);
-});
-
-    // Phone 
-if (phoneLink) {
-    phoneLink.addEventListener("click", function(event) {
-        event.preventDefault();
-        animateText(phoneLink, phone, function() {
-            window.location.href = `tel:${phone}`; 
+        emailLink.addEventListener("mouseleave", function() {
+            animateText(emailLink, mailText);
         });
-    });
+    }
 
-    phoneLink.addEventListener("mouseleave", function() {
-        animateText(phoneLink, phoneText);
-    });
-}
+    // LinkedIn
+    if (linkedinLink) {
+        linkedinLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            animateText(linkedinLink, linkedin, function() {
+                window.open(linkedin, "_blank");
+            });
+        });
+
+        linkedinLink.addEventListener("mouseleave", function() {
+            animateText(linkedinLink, linkedinText);
+        });
+    }
+
+    // Instagram
+    if (instaLink) {
+        instaLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            animateText(instaLink, insta, function() {
+                window.open(insta, "_blank");
+            });
+        });
+
+        instaLink.addEventListener("mouseleave", function() {
+            animateText(instaLink, instaText);
+        });
+    }
+
+    // Phone
+    if (phoneLink) {
+        phoneLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            animateText(phoneLink, phone, function() {
+                window.location.href = `tel:${phone}`;
+            });
+        });
+
+        phoneLink.addEventListener("mouseleave", function() {
+            animateText(phoneLink, phoneText);
+        });
+    }
+
+    // GitHub
+    if (gitLink) {
+        gitLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            animateText(gitLink, git, function() {
+                window.open(git, "_blank");
+            });
+        });
+
+        gitLink.addEventListener("mouseleave", function() {
+            animateText(gitLink, gitText);
+        });
+    }
 });
-
-
-
 
