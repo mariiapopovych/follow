@@ -2,3 +2,4 @@
 node_modules
 dist
 *.heapsnapshot
+/Users/mary/AppData/Roaming/npm/
